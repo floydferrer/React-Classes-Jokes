@@ -19,19 +19,27 @@ const JokeList = ({numJokes = 5}) => {
             setSeenJokes([...seenJokes, {joke: joke.id}]);
             if (jokes.length === 0) {
                 setJokes([...jokes, { ...joke, votes: 0 }]);
-                console.log('0 jokes')
             } else {
-                for(let j of seenJokes) {
-                    console.log(j.joke)
-                    console.log(joke.id)
-                    if (j.joke !== joke.id) {
-                      console.log('runs')  
-                      setJokes([...jokes, { ...joke, votes: 0 }]);
-                      } else {
-                        console.log("duplicate found!");
-                        return;
-                      }
-                }
+                // console.log(seenJokes)
+                const duplicate = seenJokes.filter(j => j.joke === joke.id)
+                console.log(duplicate)
+                if(duplicate.length > 0) {
+                  console.log("duplicate found!");
+                } else {
+                  setJokes([...jokes, { ...joke, votes: 0 }]);
+                } 
+                // console.log('HERE!!!!!!! ' + duplicate)
+                // for(let j of seenJokes) {
+                //     console.log(j.joke)
+                //     console.log(joke.id)
+                //     if (j.joke !== joke.id) {
+                //       console.log('runs')  
+                //       setJokes([...jokes, { ...joke, votes: 0 }]);
+                //       } else {
+                //         console.log("duplicate found!");
+                //         return;
+                //       }
+                // }
             }
         }
         if(jokes.length === numJokes) setIsLoading(false);
